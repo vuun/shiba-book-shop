@@ -5,7 +5,7 @@
       v-for="book in bookList"
       :key="book.title"
       @click="addBookToCart(book)"
-      width="144"
+      width="156"
     >
       <v-img :src="`${book.cover}`" aspect-ratio="0.65" class="grey lighten-2">
         <template v-slot:placeholder>
@@ -15,7 +15,7 @@
         </template>
       </v-img>
       <v-card-text>{{ book.title }}</v-card-text>
-      <v-card-text>{{ book.price }} Baht</v-card-text>
+      <v-card-text>{{ book.price }} &#3647;</v-card-text>
     </v-card>
   </v-layout>
 </template>
