@@ -1,10 +1,10 @@
 <template>
   <v-layout wrap>
     <v-card
-      @click="addBookToCart()"
       class="ma-2"
       v-for="book in bookList"
       :key="book.title"
+      @click="addBookToCart(book)"
       width="144"
     >
       <v-img :src="`${book.cover}`" aspect-ratio="0.65" class="grey lighten-2">
@@ -34,8 +34,8 @@ export default {
     this.getBook();
   },
   methods: {
-    addBookToCart() {
-      // TO DO
+    addBookToCart(book) {
+      this.$store.dispatch('data/addBook', book);
     },
     async getBook() {
       const result = await apiBook();
