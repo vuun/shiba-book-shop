@@ -1,4 +1,4 @@
-# shibabookshop
+# Shiba Book Shop
 
 ## Project setup
 ```
