@@ -1,6 +1,6 @@
 # Shiba Book Shop
 
-Working website on  https://vuun.github.io/shiba-book-shop/
+Working website on  https://vuun.github.io/shiba-book-shop/  
 Document https://docs.google.com/document/d/1GrJ0349LAvn5GzsjXvxLSvwNmBMfMNsTLRzVGixf7UQ/edit?usp=sharing
 
 ## Project setup
