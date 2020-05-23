@@ -80,7 +80,7 @@ describe('TestComponent', () => {
     expect(spy).toHaveBeenCalledTimes(0);
   });
 
-  it('click btnCharge then call Calculate (cartGotvalue and got credit)', async () => {
+  it('click btnCharge then call Calculate (cartGotvalue and got credit)', () => {
     const wrapper = mount(TestComponent, {
       localVue,
       vuetify,
@@ -104,10 +104,11 @@ describe('TestComponent', () => {
     const spy = jest.spyOn(wrapper.vm, 'Calculate');
 
     button.trigger('click');
+
     expect(spy).toHaveBeenCalledTimes(1);
   });
 
-  it('when have item there is minus/plus/delete btn', async () => {
+  it('when have item there is minus/plus/delete btn', () => {
     const wrapper = mount(TestComponent, {
       localVue,
       vuetify,
@@ -117,7 +118,7 @@ describe('TestComponent', () => {
           return [
             {
               count: 1,
-              cover: 'https://d1w7fb2mkkr3kw.cloudfront.net/assets/images/book/mid/9781/4088/9781408855690.jpg',
+              cover: '',
               id: '9781408855690',
               price: '380',
               title: 'Harry Potter and the Order of the Phoenix (V)',

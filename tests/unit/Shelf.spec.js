@@ -55,6 +55,8 @@ describe('TestComponent', () => {
         };
       },
     });
+    await wrapper.vm.$nextTick();
+
     expect(wrapper.find('.v-image').exists()).toBe(false);
   });
 
@@ -66,7 +68,7 @@ describe('TestComponent', () => {
       data() {
         return {
           shelfList: [{
-            cover: 'https://d1w7fb2mkkr3kw.cloudfront.net/assets/images/book/mid/9781/4088/9781408855690.jpg',
+            cover: '',
             id: '9781408855690',
             price: '380',
             title: 'Harry Potter and the Order of the Phoenix (V)',
@@ -74,6 +76,69 @@ describe('TestComponent', () => {
         };
       },
     });
+    await wrapper.vm.$nextTick();
+
     expect(wrapper.find('.v-image').exists()).toBe(true);
+  });
+
+  it('click at card will add item to cartList', async () => {
+    const wrapper = mount(TestComponent, {
+      localVue,
+      vuetify,
+      store,
+      data() {
+        return {
+          shelfList: [{
+            cover: '',
+            id: '9781408855690',
+            price: '380',
+            title: 'Harry Potter and the Order of the Phoenix (V)',
+          }],
+        };
+      },
+    });
+    const button = wrapper.find('.v-card');
+
+    expect(wrapper.find('.v-card').exists()).toBe(true);
+
+    const spy = jest.spyOn(wrapper.vm, 'addBookToCart');
+
+    button.trigger('click');
+
+    expect(spy).toHaveBeenCalledTimes(1);
+    expect(wrapper.vm.$store.state.data.cartList.length).toBe(1);
+    expect(wrapper.vm.$store.state.data.cartList[0].count).toBe(1);
+  });
+
+  it('click at card 3 times that book will have count = 3', async () => {
+    const wrapper = mount(TestComponent, {
+      localVue,
+      vuetify,
+      store,
+      data() {
+        return {
+          shelfList: [{
+            cover: '',
+            id: '9781408855690',
+            price: '380',
+            title: 'Harry Potter and the Order of the Phoenix (V)',
+          }],
+        };
+      },
+    });
+    const button = wrapper.find('.v-card');
+
+    expect(wrapper.find('.v-card').exists()).toBe(true);
+
+    const spy = jest.spyOn(wrapper.vm, 'addBookToCart');
+
+    // have clicked 1 time from last test
+    expect(wrapper.vm.$store.state.data.cartList[0].count).toBe(1);
+    button.trigger('click');
+    expect(wrapper.vm.$store.state.data.cartList[0].count).toBe(2);
+    button.trigger('click');
+    expect(wrapper.vm.$store.state.data.cartList[0].count).toBe(3);
+
+    expect(spy).toHaveBeenCalledTimes(2);
   });
 });
