@@ -57,23 +57,4 @@ describe('TestComponent', () => {
     });
     expect(wrapper.find('.v-image').exists()).toBe(false);
   });
-
-  it('if there is shelfList then v-image will appear', () => {
-    const wrapper = mount(TestComponent, {
-      localVue,
-      vuetify,
-      store,
-      data() {
-        return {
-          shelfList: [{
-            cover: '',
-            id: '9781408855690',
-            price: '380',
-            title: 'Harry Potter and the Order of the Phoenix (V)',
-          }],
-        };
-      },
-    });
-    expect(wrapper.find('.v-image').exists()).toBe(true);
-  });
 });
