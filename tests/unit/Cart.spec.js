@@ -24,7 +24,7 @@ document.body.appendChild(app);
 
 const localVue = createLocalVue();
 
-describe('TestComponent.vue', () => {
+describe('TestComponent', () => {
   let vuetify;
 
   beforeEach(() => {
@@ -105,5 +105,29 @@ describe('TestComponent.vue', () => {
 
     button.trigger('click');
     expect(spy).toHaveBeenCalledTimes(1);
+  });
+
+  it('when have item there is minus/plus/delete btn', async () => {
+    const wrapper = mount(TestComponent, {
+      localVue,
+      vuetify,
+      store,
+      computed: {
+        cartList() {
+          return [
+            {
+              count: 1,
+              cover: 'https://d1w7fb2mkkr3kw.cloudfront.net/assets/images/book/mid/9781/4088/9781408855690.jpg',
+              id: '9781408855690',
+              price: '380',
+              title: 'Harry Potter and the Order of the Phoenix (V)',
+            },
+          ];
+        },
+      },
+    });
+    expect(wrapper.find('.plus').exists()).toBe(true);
+    expect(wrapper.find('.minus').exists()).toBe(true);
+    expect(wrapper.find('.delete').exists()).toBe(true);
   });
 });

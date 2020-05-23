@@ -16,13 +16,13 @@
           <tr v-for="book in cartList" :key="book.title + new Date()">
             <td>{{ book.title }}</td>
             <td><v-btn @click="decreaseBook(book)" outlined fab max-width="25px" max-height="25px"
-            dark color="red"><v-icon>mdi-minus</v-icon></v-btn></td>
+            dark class="minus" color="red"><v-icon>mdi-minus</v-icon></v-btn></td>
             <td>{{ book.count }}</td>
             <td><v-btn @click="addBook(book)" outlined fab max-width="25px" max-height="25px"
-            dark color="green"><v-icon>mdi-plus</v-icon></v-btn></td>
+            dark class="plus" color="green"><v-icon>mdi-plus</v-icon></v-btn></td>
             <td>{{ book.count * Number(book.price) }} &#3647;</td>
             <td><v-btn @click="deleteBook(book)" outlined fab max-width="25px" max-height="25px"
-            dark color="red"><v-icon>mdi-delete</v-icon></v-btn></td>
+            dark class="delete" color="red"><v-icon>mdi-delete</v-icon></v-btn></td>
           </tr>
         </tbody>
       </template>
