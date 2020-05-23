@@ -4,9 +4,11 @@
       <template v-slot:default>
         <thead>
           <tr>
-            <th :id="'name'" class="text-left">Title</th>
-            <th :id="'quan'" :width="`10%`" class="text-left">Quantity</th>
+            <th :id="'name'" :width="`70%`" class="text-left">Title</th>
+            <th :id="'quan'" :width="`5%`" class="text-left">QTY</th>
             <th :id="'price'" :width="`25%`" class="text-left">Price</th>
+            <th :id="'delete'" :width="`2.5%`"></th>
+            <th :id="'deleteall'" :width="`2.5%`"></th>
           </tr>
         </thead>
         <tbody>
@@ -14,6 +16,10 @@
             <td>{{ book.title }}</td>
             <td>{{ book.count }}</td>
             <td>{{ book.count * Number(book.price) }} &#3647;</td>
+            <td><v-btn @click="decreaseBook(book)" outlined fab max-width="25px" max-height="25px"
+            dark color="red"><v-icon>mdi-minus</v-icon></v-btn></td>
+            <td><v-btn @click="deleteBook(book)" outlined fab max-width="25px" max-height="25px"
+            dark color="red"><v-icon>mdi-delete</v-icon></v-btn></td>
           </tr>
         </tbody>
       </template>
@@ -132,6 +138,12 @@ export default {
     },
   },
   methods: {
+    deleteBook(book) {
+      this.$store.dispatch('data/deleteBook', book);
+    },
+    decreaseBook(book) {
+      this.$store.dispatch('data/decreaseBook', book);
+    },
     Calculate() {
       this.dialog = true;
     },
