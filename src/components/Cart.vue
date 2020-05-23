@@ -111,6 +111,15 @@ export default {
       dialog: false,
       credit: '',
       discountPrice: 0,
+      HPBooks: {
+        HP1: null,
+        HP2: null,
+        HP3: null,
+        HP4: null,
+        HP5: null,
+        HP6: null,
+        HP7: null,
+      },
     };
   },
   computed: {
@@ -122,6 +131,7 @@ export default {
       this.cartList.forEach((book) => {
         price += book.count * Number(book.price);
       });
+      price -= this.discountPrice;
       return price;
     },
     change() {
@@ -137,6 +147,10 @@ export default {
       }
     },
   },
+  updated() {
+    this.getAllHPBook();
+    this.CalculateDiscount();
+  },
   methods: {
     deleteBook(book) {
       this.$store.dispatch('data/deleteBook', book);
@@ -147,9 +161,99 @@ export default {
     Calculate() {
       this.dialog = true;
     },
+    findHP(id) {
+      const result = this.cartList.filter((b) => b.id === id);
+      if (result.length > 0) {
+        return JSON.parse(JSON.stringify(result[0]));
+      }
+      return null;
+    },
+    getAllHPBook() {
+      this.HPBooks = {
+        HP1: this.findHP('9781408855652'),
+        HP2: this.findHP('9781408855669'),
+        HP3: this.findHP('9781408855676'),
+        HP4: this.findHP('9781408855683'),
+        HP5: this.findHP('9781408855690'),
+        HP6: this.findHP('9781408855706'),
+        HP7: this.findHP('9781408855713'),
+      };
+      console.log(this.HPBooks);
+    },
+    CalculateDiscount() {
+      let series = 0;
+      let discount = 0;
+      const discountValue = [0, 0, 10, 11, 12, 13, 14, 15];
+      let totalPrice = 0;
+      const whileCondition = true;
+      const HPBookCopies = JSON.parse(JSON.stringify(this.HPBooks));
+      while (whileCondition) {
+        if (HPBookCopies.HP1) {
+          if (HPBookCopies.HP1.count > 0) {
+            series += 1;
+            HPBookCopies.HP1.count -= 1;
+            totalPrice += Number(HPBookCopies.HP1.price);
+          }
+        }
+        if (HPBookCopies.HP2) {
+          if (HPBookCopies.HP2.count > 0) {
+            series += 1;
+            HPBookCopies.HP2.count -= 1;
+            totalPrice += Number(HPBookCopies.HP2.price);
+          }
+        }
+        if (HPBookCopies.HP3) {
+          if (HPBookCopies.HP3.count > 0) {
+            series += 1;
+            HPBookCopies.HP3.count -= 1;
+            totalPrice += Number(HPBookCopies.HP3.price);
+          }
+        }
+        if (HPBookCopies.HP4) {
+          if (HPBookCopies.HP4.count > 0) {
+            series += 1;
+            HPBookCopies.HP4.count -= 1;
+            totalPrice += Number(HPBookCopies.HP4.price);
+          }
+        }
+        if (HPBookCopies.HP5) {
+          if (HPBookCopies.HP5.count > 0) {
+            series += 1;
+            HPBookCopies.HP5.count -= 1;
+            totalPrice += Number(HPBookCopies.HP5.price);
+          }
+        }
+        if (HPBookCopies.HP6) {
+          if (HPBookCopies.HP6.count > 0) {
+            series += 1;
+            HPBookCopies.HP6.count -= 1;
+            totalPrice += Number(HPBookCopies.HP6.price);
+          }
+        }
+        if (HPBookCopies.HP7) {
+          if (HPBookCopies.HP7.count > 0) {
+            series += 1;
+            HPBookCopies.HP7.count -= 1;
+            totalPrice += Number(HPBookCopies.HP7.price);
+          }
+        }
+        console.log('series', series);
+        if (series === 1 || series === 0) {
+          this.discountPrice = discount;
+          return;
+        }
+
+        console.log('totalPrice', totalPrice);
+        discount += (totalPrice * discountValue[series]) / 100;
+        console.log('discountPrice', this.discountPrice);
+        series = 0;
+        totalPrice = 0;
+      }
+    },
     clear() {
       this.$store.dispatch('data/clearCart');
       this.credit = '';
+      this.discountPrice = 0;
     },
   },
 };
