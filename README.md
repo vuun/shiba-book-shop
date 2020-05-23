@@ -1,5 +1,7 @@
 # Shiba Book Shop
 
+Working website on  https://vuun.github.io/shiba-book-shop/
+
 ## Project setup
 ```
 npm install
