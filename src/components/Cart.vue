@@ -50,7 +50,8 @@
       <v-list-item>
         <v-list-item-content>
           <v-btn
-            :disabled="cartList.length <= 0 || credit === ''"
+            :disabled="cartLength <= 0 || credit === ''"
+            class="btnCharge"
             @click="Calculate()"
             color="white--text indigo darken-4"
           >Charge</v-btn>
@@ -61,6 +62,7 @@
         <v-list-item-content>
           <v-btn
             @click="closeDialog()"
+            class="btnCloseDialog"
             color="white--text indigo darken-4"
           >Go to Bookshelf</v-btn>
         </v-list-item-content>
@@ -153,6 +155,9 @@ export default {
     },
     change() {
       return this.credit - this.totalPrice;
+    },
+    cartLength() {
+      return this.cartList.length;
     },
   },
   watch: {
