@@ -56,6 +56,15 @@
           >Charge</v-btn>
         </v-list-item-content>
       </v-list-item>
+      <v-spacer/>
+      <v-list-item>
+        <v-list-item-content>
+          <v-btn
+            @click="closeDialog()"
+            color="white--text indigo darken-4"
+          >Go to Bookshelf</v-btn>
+        </v-list-item-content>
+      </v-list-item>
     </v-list>
     <v-dialog v-model="dialog" max-width="280">
       <v-card>
@@ -108,9 +117,14 @@ import { mapState } from 'vuex';
 
 export default {
   name: 'Cart',
+  props: {
+    drawer: {
+      type: Boolean,
+      default: true,
+    },
+  },
   data() {
     return {
-      drawer: true,
       dialog: false,
       credit: '',
       discountPrice: 0,
@@ -155,6 +169,9 @@ export default {
     this.CalculateDiscount();
   },
   methods: {
+    closeDialog() {
+      this.$emit('close');
+    },
     addBook(book) {
       this.$store.dispatch('data/addBook', book);
     },

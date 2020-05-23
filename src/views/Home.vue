@@ -1,11 +1,12 @@
 <template>
   <div>
-    <Cart />
+    <Cart :drawer="drawer" @close="drawer = false"/>
 
     <v-app-bar app color="indigo darken-4" dark>
       <v-spacer></v-spacer>
 
       <v-toolbar-title>Shiba Book Shop</v-toolbar-title>
+      <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
     </v-app-bar>
 
     <v-content>
@@ -34,6 +35,7 @@ export default {
   },
   data() {
     return {
+      drawer: true,
     };
   },
 };
