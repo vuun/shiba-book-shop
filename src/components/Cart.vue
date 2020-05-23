@@ -4,12 +4,12 @@
       <template v-slot:default>
         <thead>
           <tr>
-            <th :id="'name'" :width="`70%`" class="text-left">Title</th>
-            <th :id="'delete'" :width="`2.5%`"></th>
+            <th :id="'name'" :width="`65%`" class="text-left">Title</th>
+            <th :id="'delete'" :width="`1%`"></th>
             <th :id="'quan'" :width="`5%`" class="text-left">QTY</th>
-            <th :id="'add'" :width="`2.5%`"></th>
-            <th :id="'price'" :width="`25%`" class="text-left">Price</th>
-            <th :id="'deleteall'" :width="`2.5%`"></th>
+            <th :id="'add'" :width="`1%`"></th>
+            <th :id="'price'" :width="`27%`" class="text-left">Price</th>
+            <th :id="'deleteall'" :width="`1%`"></th>
           </tr>
         </thead>
         <tbody>
