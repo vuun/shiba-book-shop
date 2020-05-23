@@ -44,7 +44,21 @@ describe('TestComponent', () => {
     });
   });
 
-  it('click at card will add item to cartList', async () => {
+  it('if there is no shelfList then v-image wont appear', () => {
+    const wrapper = mount(TestComponent, {
+      localVue,
+      vuetify,
+      store,
+      data() {
+        return {
+          shelfList: [],
+        };
+      },
+    });
+    expect(wrapper.find('.v-image').exists()).toBe(false);
+  });
+
+  it('if there is shelfList then v-image will appear', () => {
     const wrapper = mount(TestComponent, {
       localVue,
       vuetify,
@@ -60,16 +74,6 @@ describe('TestComponent', () => {
         };
       },
     });
-    await wrapper.vm.$nextTick();
-    const button = wrapper.find('.v-card');
-
-    expect(wrapper.find('.v-card').exists()).toBe(true);
-
-    const spy = jest.spyOn(wrapper.vm, 'addBookToCart');
-
-    button.trigger('click');
-    expect(spy).toHaveBeenCalledTimes(1);
-    expect(wrapper.vm.$store.state.data.cartList.length).toBe(1);
-    expect(wrapper.vm.$store.state.data.cartList[0].count).toBe(1);
+    expect(wrapper.find('.v-image').exists()).toBe(true);
   });
 });

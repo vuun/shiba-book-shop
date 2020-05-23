@@ -131,4 +131,14 @@ describe('TestComponent', () => {
     expect(wrapper.find('.minus').exists()).toBe(true);
     expect(wrapper.find('.delete').exists()).toBe(true);
   });
+  it('when have no item there is no minus/plus/delete btn', () => {
+    const wrapper = mount(TestComponent, {
+      localVue,
+      vuetify,
+      store,
+    });
+    expect(wrapper.find('.plus').exists()).toBe(false);
+    expect(wrapper.find('.minus').exists()).toBe(false);
+    expect(wrapper.find('.delete').exists()).toBe(false);
+  });
 });
