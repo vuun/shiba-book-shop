@@ -1,23 +1,26 @@
 <template>
-  <v-navigation-drawer v-model="drawer" app right width="400">
+  <v-navigation-drawer v-model="drawer" app right width="450">
     <v-simple-table fixed-header height="400px">
       <template v-slot:default>
         <thead>
           <tr>
             <th :id="'name'" :width="`70%`" class="text-left">Title</th>
-            <th :id="'quan'" :width="`5%`" class="text-left">QTY</th>
-            <th :id="'price'" :width="`25%`" class="text-left">Price</th>
             <th :id="'delete'" :width="`2.5%`"></th>
+            <th :id="'quan'" :width="`5%`" class="text-left">QTY</th>
+            <th :id="'add'" :width="`2.5%`"></th>
+            <th :id="'price'" :width="`25%`" class="text-left">Price</th>
             <th :id="'deleteall'" :width="`2.5%`"></th>
           </tr>
         </thead>
         <tbody>
           <tr v-for="book in cartList" :key="book.title + new Date()">
             <td>{{ book.title }}</td>
-            <td>{{ book.count }}</td>
-            <td>{{ book.count * Number(book.price) }} &#3647;</td>
             <td><v-btn @click="decreaseBook(book)" outlined fab max-width="25px" max-height="25px"
             dark color="red"><v-icon>mdi-minus</v-icon></v-btn></td>
+            <td>{{ book.count }}</td>
+            <td><v-btn @click="addBook(book)" outlined fab max-width="25px" max-height="25px"
+            dark color="green"><v-icon>mdi-plus</v-icon></v-btn></td>
+            <td>{{ book.count * Number(book.price) }} &#3647;</td>
             <td><v-btn @click="deleteBook(book)" outlined fab max-width="25px" max-height="25px"
             dark color="red"><v-icon>mdi-delete</v-icon></v-btn></td>
           </tr>
@@ -152,6 +155,9 @@ export default {
     this.CalculateDiscount();
   },
   methods: {
+    addBook(book) {
+      this.$store.dispatch('data/addBook', book);
+    },
     deleteBook(book) {
       this.$store.dispatch('data/deleteBook', book);
     },
@@ -162,9 +168,9 @@ export default {
       this.dialog = true;
     },
     findHP(id) {
-      const result = this.cartList.filter((b) => b.id === id);
-      if (result.length > 0) {
-        return JSON.parse(JSON.stringify(result[0]));
+      const result = this.cartList.find((b) => b.id === id);
+      if (result) {
+        return JSON.parse(JSON.stringify(result));
       }
       return null;
     },
@@ -178,7 +184,7 @@ export default {
         HP6: this.findHP('9781408855706'),
         HP7: this.findHP('9781408855713'),
       };
-      console.log(this.HPBooks);
+      // console.log(this.HPBooks);
     },
     CalculateDiscount() {
       let series = 0;
@@ -237,15 +243,15 @@ export default {
             totalPrice += Number(HPBookCopies.HP7.price);
           }
         }
-        console.log('series', series);
+        // console.log('series', series);
         if (series === 1 || series === 0) {
           this.discountPrice = discount;
           return;
         }
 
-        console.log('totalPrice', totalPrice);
+        // console.log('totalPrice', totalPrice);
         discount += (totalPrice * discountValue[series]) / 100;
-        console.log('discountPrice', this.discountPrice);
+        // console.log('discountPrice', this.discountPrice);
         series = 0;
         totalPrice = 0;
       }
